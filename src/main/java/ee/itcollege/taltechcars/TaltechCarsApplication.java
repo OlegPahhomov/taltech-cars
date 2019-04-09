@@ -17,26 +17,26 @@ public class TaltechCarsApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(CarRepository repository) {
+    public CommandLineRunner initCars(CarRepository repository) {
         return (args) -> {
-            // save a couple of customers
-            repository.save(new Car("Jack", 1, "Bauer"));
-            repository.save(new Car("Chloe", 1, "O'Brian"));
-            repository.save(new Car("Kim", 1, "Bauer"));
-            repository.save(new Car("David", 1, "Palmer"));
-            repository.save(new Car("Michelle", 1, "Dessler"));
+            // save a couple of cars
+            repository.save(new Car("111111111", 1999, "VW Golf"));
+            repository.save(new Car("222222222", 2008, "Audi A6"));
+            repository.save(new Car("333333333", 2014, "BMW 318d"));
+            repository.save(new Car("444444444", 2016, "Volvo V50"));
+            repository.save(new Car("555555555", 2018, "Audi A6"));
         };
     }
 
     @Bean
-    public CommandLineRunner demo2(UserRepository repository) {
+    public CommandLineRunner initUsers(UserRepository repository) {
         return (args) -> {
-            // save a couple of customers
-            repository.save(new User("Jack", "Bauer"));
-            repository.save(new User("Chloe", "O'Brian"));
-            repository.save(new User("Kim", "Bauer"));
-            repository.save(new User("David", "Palmer"));
-            repository.save(new User("Michelle", "Dessler"));
+            // save a couple of students
+            repository.save(new User("SweetJill14", "ICS0011"));
+            repository.save(new User("Chloe123", "ICS0012"));
+            repository.save(new User("KimTheDragon", "ICS0013"));
+            repository.save(new User("DavidDavid", "ICS0014"));
+            repository.save(new User("Mich3ll3", "ICS0015"));
         };
     }
 }
