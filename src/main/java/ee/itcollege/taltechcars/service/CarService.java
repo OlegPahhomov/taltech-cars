@@ -30,6 +30,7 @@ public class CarService {
 
     public Car save(Car car) {
         carValidator.validate(car);
+        car.setCreatedAt(LocalDateTime.now());
         return carRepository.save(car);
     }
 
