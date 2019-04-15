@@ -50,7 +50,7 @@ public class CarController {
         dbCar.setModelNr(car.getModelNr());
         dbCar.setRegistrationNr(car.getRegistrationNr());
         dbCar.setYear(car.getYear());
-        return carRepository.save(car);
+        return carRepository.save(dbCar);
     }
 
     @DeleteMapping("{id}")

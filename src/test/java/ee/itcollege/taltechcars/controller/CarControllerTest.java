@@ -68,11 +68,23 @@ public class CarControllerTest {
         Car car = entity.getBody();
         assertNotNull(car);
         car.setRegistrationNr("HELLO");
+        car.setYear(2020);
+        car.setModelNr("Audi A8");
         HttpEntity<Car> carEntity = new HttpEntity<>(car);
         ResponseEntity<Car> exchange = restTemplate.exchange("/car/2", HttpMethod.PUT, carEntity, Car.class);
+        Car updatedCar = exchange.getBody();
+        assertNotNull(updatedCar);
+        assertEquals("HELLO", updatedCar.getRegistrationNr());
+        assertEquals("Audi A8", updatedCar.getModelNr());
+        assertEquals(2020, (int) updatedCar.getYear());
     }
 
     @Test
     public void delete() {
+        ResponseEntity<Car> entity = restTemplate.exchange("/car/3",
+                HttpMethod.DELETE, null, Car.class);
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+        Car car = entity.getBody();
+        assertNull(car);
     }
 }
