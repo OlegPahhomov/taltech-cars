@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -61,6 +63,13 @@ public class CarControllerTest {
 
     @Test
     public void update() {
+        ResponseEntity<Car> entity = restTemplate.getForEntity("/car/2", Car.class);
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+        Car car = entity.getBody();
+        assertNotNull(car);
+        car.setRegistrationNr("HELLO");
+        HttpEntity<Car> carEntity = new HttpEntity<>(car);
+        ResponseEntity<Car> exchange = restTemplate.exchange("/car/2", HttpMethod.PUT, carEntity, Car.class);
     }
 
     @Test
