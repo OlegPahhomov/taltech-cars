@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
@@ -27,6 +28,10 @@ public class CarControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    //public static void main(String[] args) {
+    //    IntStream.range(0, 100).parallel().forEach(n -> System.out.print(n + " "));
+    //}
 
     @Test
     public void findAll() {
