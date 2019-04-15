@@ -49,7 +49,14 @@ public class CarControllerTest {
     @Test
     public void save() {
         Car newCar = new Car("666", 2016, "Ghost-999");
-
+        ResponseEntity<Car> entity =
+                restTemplate.postForEntity("/car", newCar, Car.class);
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+        Car savedCar = entity.getBody();
+        assertNotNull(savedCar);
+        assertEquals("666", savedCar.getRegistrationNr());
+        assertEquals("Ghost-999", savedCar.getModelNr());
+        assertEquals(2016, (int) savedCar.getYear());
     }
 
     @Test
