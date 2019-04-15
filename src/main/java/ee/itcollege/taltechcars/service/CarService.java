@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -38,6 +39,7 @@ public class CarService {
         dbCar.setModelNr(car.getModelNr());
         dbCar.setRegistrationNr(car.getRegistrationNr());
         dbCar.setYear(car.getYear());
+        dbCar.setUpdatedAt(LocalDateTime.now());
         return carRepository.save(dbCar);
     }
 

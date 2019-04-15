@@ -15,6 +15,8 @@ public class Car {
     private String registrationNr;
     private Integer year;
     private String modelNr;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Car() {
     }
@@ -23,6 +25,7 @@ public class Car {
         this.registrationNr = registrationNr;
         this.year = year;
         this.modelNr = modelNr;
+        this.createdAt = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -55,5 +58,21 @@ public class Car {
 
     public void setModelNr(String modelNr) {
         this.modelNr = modelNr;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
