@@ -28,12 +28,22 @@ public class CarControllerTest {
 
     @Test
     public void findAll() {
-        restTemplate.exchange("/car", HttpMethod.GET, null, LIST_OF_CARS);
-        restTemplate.getForEntity("/car/1", Car.class);
+        ResponseEntity<List<Car>> exchange = restTemplate.exchange("/car", HttpMethod.GET, null, LIST_OF_CARS);
+        assertEquals(HttpStatus.OK, exchange.getStatusCode());
+        List<Car> cars = exchange.getBody();
+        assertNotNull(cars);
+        assertFalse(cars.isEmpty());
     }
 
     @Test
     public void findOne() {
+        ResponseEntity<Car> entity = restTemplate.getForEntity("/car/1", Car.class);
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+        Car car = entity.getBody();
+        assertNotNull(car);
+        assertEquals("111111111", car.getRegistrationNr());
+        assertEquals("VW Golf", car.getModelNr());
+        assertEquals(1999, (int) car.getYear());
     }
 
     @Test
