@@ -48,6 +48,8 @@ public class CarControllerTest {
 
     @Test
     public void save() {
+        Car newCar = new Car("666", 2016, "Ghost-999");
+
     }
 
     @Test
