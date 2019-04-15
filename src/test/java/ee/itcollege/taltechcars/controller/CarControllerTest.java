@@ -9,13 +9,11 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
@@ -34,7 +32,7 @@ public class CarControllerTest {
     //}
 
     @Test
-    public void findAll() {
+    public void application_returns_a_list_of_cars() {
         ResponseEntity<List<Car>> exchange = restTemplate.exchange("/car", HttpMethod.GET, null, LIST_OF_CARS);
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
         List<Car> cars = exchange.getBody();
@@ -43,7 +41,7 @@ public class CarControllerTest {
     }
 
     @Test
-    public void findOne() {
+    public void you_can_find_one_car_if_id_exists() {
         ResponseEntity<Car> entity = restTemplate.getForEntity("/car/1", Car.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         Car car = entity.getBody();
@@ -54,7 +52,7 @@ public class CarControllerTest {
     }
 
     @Test
-    public void save() {
+    public void you_can_save_a_car() {
         Car newCar = new Car("666", 2016, "Ghost-999");
         ResponseEntity<Car> entity =
                 restTemplate.postForEntity("/car", newCar, Car.class);
@@ -67,7 +65,7 @@ public class CarControllerTest {
     }
 
     @Test
-    public void update() {
+    public void you_can_update_a_car() {
         ResponseEntity<Car> entity = restTemplate.getForEntity("/car/2", Car.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         Car car = entity.getBody();
@@ -85,7 +83,7 @@ public class CarControllerTest {
     }
 
     @Test
-    public void delete() {
+    public void you_can_delete_a_car() {
         ResponseEntity<Car> entity = restTemplate.exchange("/car/3",
                 HttpMethod.DELETE, null, Car.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
