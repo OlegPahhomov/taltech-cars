@@ -1,7 +1,6 @@
 package ee.itcollege.taltechcars.repository.custom;
 
 import ee.itcollege.taltechcars.model.Car;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

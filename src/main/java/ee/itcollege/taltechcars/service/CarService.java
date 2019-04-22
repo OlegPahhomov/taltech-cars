@@ -20,12 +20,15 @@ public class CarService {
     @Autowired
     private CarValidator carValidator;
 
-    public List<Car> findAll(String modelNr) {
-        // + year, + more + and more
-        if (StringUtils.isBlank(modelNr)) {
-            return carRepository.findAll();
+    public List<Car> findAll(String modelNr, Integer yearOlder) {
+        if (StringUtils.isNotBlank(modelNr)) {
+            if (yearOlder != null) {
+                return carRepository.findCarByModelNrAndYearOlder(modelNr, yearOlder);
+            }
+            return carRepository.findByModelNrContainingIgnoreCase(modelNr);
         }
-        return carRepository.findByModelNrContainingIgnoreCase(modelNr);
+        return carRepository.findAll();
+
     }
 
     public Car findOne(Long id) {

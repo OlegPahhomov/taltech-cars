@@ -41,7 +41,7 @@ public class CarControllerTest {
     }
 
     @Test
-    public void user_can_search_for_cars() {
+    public void user_can_search_for_cars_by_model_nr_ignoring_case() {
         ResponseEntity<List<Car>> exchange =
                 restTemplate.exchange("/car/?modelNr=audi",
                 HttpMethod.GET, null, LIST_OF_CARS);
@@ -99,19 +99,19 @@ public class CarControllerTest {
 
     @Test
     public void you_can_update_a_car() {
-        ResponseEntity<Car> entity = restTemplate.getForEntity("/car/2", Car.class);
+        ResponseEntity<Car> entity = restTemplate.getForEntity("/car/4", Car.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         Car car = entity.getBody();
         assertNotNull(car);
         car.setRegistrationNr("HELLO");
         car.setYear(2020);
-        car.setModelNr("Audi A8");
+        car.setModelNr("Volvo V50+");
         HttpEntity<Car> carEntity = new HttpEntity<>(car);
-        ResponseEntity<Car> exchange = restTemplate.exchange("/car/2", HttpMethod.PUT, carEntity, Car.class);
+        ResponseEntity<Car> exchange = restTemplate.exchange("/car/4", HttpMethod.PUT, carEntity, Car.class);
         Car updatedCar = exchange.getBody();
         assertNotNull(updatedCar);
         assertEquals("HELLO", updatedCar.getRegistrationNr());
-        assertEquals("Audi A8", updatedCar.getModelNr());
+        assertEquals("Volvo V50+", updatedCar.getModelNr());
         assertEquals(2020, (int) updatedCar.getYear());
     }
 

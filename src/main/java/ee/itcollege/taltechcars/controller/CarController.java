@@ -24,8 +24,10 @@ public class CarController {
     private CarService carService;
 
     @GetMapping
-    public List<Car> findAll(@RequestParam(value = "modelNr", required = false) String modelNr) {
-        return carService.findAll(modelNr);
+    public List<Car> findAll(
+            @RequestParam(value = "modelNr", required = false) String modelNr,
+            @RequestParam(value = "yearOlder", required = false) Integer yearOlder) {
+        return carService.findAll(modelNr, yearOlder);
     }
 
     @GetMapping("{id}")
