@@ -25,7 +25,7 @@ public class CarController {
 
     @GetMapping
     public List<Car> findAll(@RequestParam(value = "modelNr", required = false) String modelNr) {
-        return carService.findAll();
+        return carService.findAll(modelNr);
     }
 
     @GetMapping("{id}")

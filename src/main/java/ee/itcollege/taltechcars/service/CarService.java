@@ -19,7 +19,7 @@ public class CarService {
     @Autowired
     private CarValidator carValidator;
 
-    public List<Car> findAll() {
+    public List<Car> findAll(String modelNr) {
         return carRepository.findAll();
     }
 
