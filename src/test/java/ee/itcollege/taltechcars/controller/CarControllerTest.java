@@ -24,6 +24,9 @@ public class CarControllerTest {
 
     public static final ParameterizedTypeReference<List<Car>> LIST_OF_CARS = new ParameterizedTypeReference<List<Car>>() {
     };
+    public static final String VW_GOLF = "111111111";
+    public static final String AUDI_2008 = "222222222";
+    public static final String AUDI_2018 = "555555555";
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -46,8 +49,22 @@ public class CarControllerTest {
         List<Car> cars = exchange.getBody();
         assertNotNull(cars);
         assertFalse(cars.isEmpty());
-        assertTrue(findCar(cars, "222222222").isPresent());
-        assertFalse(findCar(cars, "111111111").isPresent());
+        assertTrue(findCar(cars, AUDI_2008).isPresent());
+        assertFalse(findCar(cars, VW_GOLF).isPresent());
+    }
+
+    @Test
+    public void user_can_search_for_cars_by_model_nr_and_yearOlder() {
+        ResponseEntity<List<Car>> exchange =
+                restTemplate.exchange("/car/?modelNr=audi&yearOlder=2010",
+                        HttpMethod.GET, null, LIST_OF_CARS);
+        assertEquals(HttpStatus.OK, exchange.getStatusCode());
+        List<Car> cars = exchange.getBody();
+        assertNotNull(cars);
+        assertFalse(cars.isEmpty());
+        assertTrue(findCar(cars, AUDI_2018).isPresent());
+        assertFalse(findCar(cars, AUDI_2008).isPresent());
+        assertFalse(findCar(cars, VW_GOLF).isPresent());
     }
 
     private Optional<Car> findCar(List<Car> cars, String regNum) {
@@ -62,7 +79,7 @@ public class CarControllerTest {
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         Car car = entity.getBody();
         assertNotNull(car);
-        assertEquals("111111111", car.getRegistrationNr());
+        assertEquals(VW_GOLF, car.getRegistrationNr());
         assertEquals("VW Golf", car.getModelNr());
         assertEquals(1999, (int) car.getYear());
     }
