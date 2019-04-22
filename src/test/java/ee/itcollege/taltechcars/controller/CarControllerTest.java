@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -27,10 +28,6 @@ public class CarControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    //public static void main(String[] args) {
-    //    IntStream.range(0, 100).parallel().forEach(n -> System.out.print(n + " "));
-    //}
-
     @Test
     public void application_returns_a_list_of_cars() {
         ResponseEntity<List<Car>> exchange = restTemplate.exchange("/car", HttpMethod.GET, null, LIST_OF_CARS);
@@ -38,6 +35,25 @@ public class CarControllerTest {
         List<Car> cars = exchange.getBody();
         assertNotNull(cars);
         assertFalse(cars.isEmpty());
+    }
+
+    @Test
+    public void user_can_search_for_cars() {
+        ResponseEntity<List<Car>> exchange =
+                restTemplate.exchange("/car/?modelNr=Audi",
+                HttpMethod.GET, null, LIST_OF_CARS);
+        assertEquals(HttpStatus.OK, exchange.getStatusCode());
+        List<Car> cars = exchange.getBody();
+        assertNotNull(cars);
+        assertFalse(cars.isEmpty());
+        assertTrue(findCar(cars, "222222222").isPresent());
+        assertFalse(findCar(cars, "111111111").isPresent());
+    }
+
+    private Optional<Car> findCar(List<Car> cars, String regNum) {
+        return cars.stream()
+                .filter(c -> c.getRegistrationNr().equals(regNum))
+                .findAny();
     }
 
     @Test
