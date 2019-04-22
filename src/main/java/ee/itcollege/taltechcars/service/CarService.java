@@ -2,6 +2,7 @@ package ee.itcollege.taltechcars.service;
 
 import ee.itcollege.taltechcars.model.Car;
 import ee.itcollege.taltechcars.repository.CarRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,7 +21,10 @@ public class CarService {
     private CarValidator carValidator;
 
     public List<Car> findAll(String modelNr) {
-        return carRepository.findAll();
+        if (StringUtils.isBlank(modelNr)) {
+            return carRepository.findAll();
+        }
+        return carRepository.findByModelNrLike("%" + modelNr + "%");
     }
 
     public Car findOne(Long id) {
