@@ -40,7 +40,7 @@ public class CarControllerTest {
     @Test
     public void user_can_search_for_cars() {
         ResponseEntity<List<Car>> exchange =
-                restTemplate.exchange("/car/?modelNr=Audi",
+                restTemplate.exchange("/car/?modelNr=audi",
                 HttpMethod.GET, null, LIST_OF_CARS);
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
         List<Car> cars = exchange.getBody();

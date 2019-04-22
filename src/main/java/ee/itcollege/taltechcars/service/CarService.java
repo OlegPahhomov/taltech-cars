@@ -24,7 +24,7 @@ public class CarService {
         if (StringUtils.isBlank(modelNr)) {
             return carRepository.findAll();
         }
-        return carRepository.findByModelNrLike("%" + modelNr + "%");
+        return carRepository.findByModelNrContainingIgnoreCase(modelNr);
     }
 
     public Car findOne(Long id) {

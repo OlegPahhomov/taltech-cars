@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
 
-    List<Car> findByModelNrLike(String modelNr);
+    List<Car> findByModelNrContainingIgnoreCase(String modelNr);
 }
