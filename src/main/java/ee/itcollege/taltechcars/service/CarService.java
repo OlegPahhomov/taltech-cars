@@ -21,6 +21,7 @@ public class CarService {
     private CarValidator carValidator;
 
     public List<Car> findAll(String modelNr) {
+        // + year, + more + and more
         if (StringUtils.isBlank(modelNr)) {
             return carRepository.findAll();
         }
