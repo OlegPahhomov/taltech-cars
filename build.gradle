@@ -1,0 +1,35 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group = 'ee.itcollege'
+version = '0.0.1-SNAPSHOT'
+
+description = """taltech-cars"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'2.1.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.1.4.RELEASE'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.9.2'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.9'
+    runtime group: 'com.h2database', name: 'h2', version:'1.4.199'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.1.4.RELEASE'
+}
