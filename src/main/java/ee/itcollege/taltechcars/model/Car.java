@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Car {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @Transient
+    @OneToMany
     private List<Lease> leases;
 
     public Car() {

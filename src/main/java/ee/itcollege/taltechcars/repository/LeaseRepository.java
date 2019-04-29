@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface LeaseRepository extends JpaRepository<Lease, Long> {
 
-    List<Lease> findByCar(Long car);
+    List<Lease> findByCar(Car car);
 }

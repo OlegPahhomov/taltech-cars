@@ -37,7 +37,7 @@ public class TaltechCarsApplication {
             userRepository.save(new User("DavidDavid", "ICS0014"));
             userRepository.save(new User("Mich3ll3", "ICS0015"));
 
-            leaseRepository.save(new Lease(savedVwGolf.getId(), jill.getId()));
+            leaseRepository.save(new Lease(savedVwGolf, jill.getId()));
             //todo save a lease
         };
     }

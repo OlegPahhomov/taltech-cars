@@ -1,9 +1,12 @@
 package ee.itcollege.taltechcars.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -14,7 +17,9 @@ public class Lease {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private Long car;
+    @ManyToOne
+    @JsonIgnore
+    private Car car;
     @NotNull
     private Long user;
     private LocalDate startDate;
@@ -24,7 +29,7 @@ public class Lease {
     public Lease() {
     }
 
-    public Lease(Long car, Long user) {
+    public Lease(Car car, Long user) {
         this.car = car;
         this.user = user;
     }
@@ -37,11 +42,11 @@ public class Lease {
         this.id = id;
     }
 
-    public Long getCar() {
+    public Car getCar() {
         return car;
     }
 
-    public void setCar(Long car) {
+    public void setCar(Car car) {
         this.car = car;
     }
 

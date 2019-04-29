@@ -42,8 +42,8 @@ public class CarService {
     public Car findOne(Long id) {
         Car car = carRepository.findById(id)
                 .orElseThrow(this::badRequest);
-        List<Lease> leases = leaseRepository.findByCar(car.getId());
-        car.setLeases(leases);
+        //List<Lease> leases = leaseRepository.findByCar(car);
+        //car.setLeases(leases);
         return car;
     }
 
