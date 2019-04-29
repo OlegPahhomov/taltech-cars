@@ -14,4 +14,10 @@ public class PageController {
     public String first() {
         return "pages/first.html";
     }
+
+    @GetMapping(value = "second")
+    public String second(Model model) {
+        model.addAttribute("lists", Arrays.asList(1, 2, 3));
+        return "second";
+    }
 }
