@@ -21,7 +21,7 @@ public class Car {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @OneToMany
+    @OneToMany(mappedBy = "car")
     private List<Lease> leases;
 
     public Car() {
