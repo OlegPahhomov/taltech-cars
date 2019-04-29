@@ -1,7 +1,9 @@
 package ee.itcollege.taltechcars.service;
 
 import ee.itcollege.taltechcars.model.Car;
+import ee.itcollege.taltechcars.model.Lease;
 import ee.itcollege.taltechcars.repository.CarRepository;
+import ee.itcollege.taltechcars.repository.LeaseRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,16 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
     @Autowired
+    private LeaseRepository leaseRepository;
+    @Autowired
     private CarValidator carValidator;
 
     public List<Car> findAll(String modelNr, Integer yearOlder) {
+        return findAllInner(modelNr, yearOlder);
+
+    }
+
+    private List<Car> findAllInner(String modelNr, Integer yearOlder) {
         if (StringUtils.isNotBlank(modelNr)) {
             if (yearOlder != null) {
                 return carRepository.findCarByModelNrAndYearOlder(modelNr, yearOlder);
@@ -28,12 +37,14 @@ public class CarService {
             return carRepository.findByModelNrContainingIgnoreCase(modelNr);
         }
         return carRepository.findAll();
-
     }
 
     public Car findOne(Long id) {
-        return carRepository.findById(id)
+        Car car = carRepository.findById(id)
                 .orElseThrow(this::badRequest);
+        List<Lease> leases = leaseRepository.findByCar(car.getId());
+        car.setLeases(leases);
+        return car;
     }
 
     public Car save(Car car) {

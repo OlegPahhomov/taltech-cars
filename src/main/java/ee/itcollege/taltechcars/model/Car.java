@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Car {
@@ -17,6 +19,9 @@ public class Car {
     private String modelNr;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @Transient
+    private List<Lease> leases;
 
     public Car() {
     }
@@ -74,5 +79,13 @@ public class Car {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Lease> getLeases() {
+        return leases;
+    }
+
+    public void setLeases(List<Lease> leases) {
+        this.leases = leases;
     }
 }
