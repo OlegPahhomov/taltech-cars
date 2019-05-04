@@ -20,18 +20,23 @@ public class Lease {
     @ManyToOne
     @JsonIgnore
     private Car car;
+    @ManyToOne
+    @JsonIgnore
+    private User user;
     @NotNull
-    private Long user;
     private LocalDate startDate;
+    @NotNull
     private LocalDate endDate;
     private LocalDate returnDate;
 
     public Lease() {
     }
 
-    public Lease(Car car, Long user) {
+    public Lease(Car car, User user, LocalDate startDate) {
         this.car = car;
         this.user = user;
+        this.startDate = startDate;
+        this.endDate = startDate.plusDays(7);
     }
 
     public Long getId() {
@@ -50,11 +55,11 @@ public class Lease {
         this.car = car;
     }
 
-    public Long getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Long user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

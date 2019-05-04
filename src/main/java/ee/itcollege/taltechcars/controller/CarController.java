@@ -26,7 +26,9 @@ public class CarController {
     @GetMapping
     public List<Car> findAll(
             @RequestParam(value = "modelNr", required = false) String modelNr,
-            @RequestParam(value = "yearOlder", required = false) Integer yearOlder) {
+            @RequestParam(value = "yearOlder", required = false) Integer yearOlder
+    //todo 1 user can search for available cars
+    ) {
         return carService.findAll(modelNr, yearOlder);
     }
 

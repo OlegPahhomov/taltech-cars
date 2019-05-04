@@ -11,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDate;
+
 @SpringBootApplication
 public class TaltechCarsApplication {
 
@@ -37,8 +39,7 @@ public class TaltechCarsApplication {
             userRepository.save(new User("DavidDavid", "ICS0014"));
             userRepository.save(new User("Mich3ll3", "ICS0015"));
 
-            leaseRepository.save(new Lease(savedVwGolf, jill.getId()));
-            //todo save a lease
+            leaseRepository.save(new Lease(savedVwGolf, jill, LocalDate.now()));
         };
     }
 }
