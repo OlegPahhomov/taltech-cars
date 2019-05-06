@@ -1,5 +1,16 @@
 package ee.itcollege.taltechcars.controller;
 
+
+import ee.itcollege.taltechcars.model.Lease;
+import ee.itcollege.taltechcars.service.LeaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/lease")
 public class LeaseController {
 
     //todo 2 user can lease out a car (start a lease)
@@ -11,4 +22,13 @@ public class LeaseController {
     // 5.1 and custom properties for fun
     //todo 6 (not in this class) add an api request for sth
     //todo 7 (import a csv file)
+
+    @Autowired
+    private LeaseService leaseService;
+
+    @PostMapping
+    public Lease save(@RequestBody Lease lease) {
+        return leaseService.save(lease);
+    }
+
 }
