@@ -26,7 +26,9 @@ public class TaltechCarsApplication {
                                       LeaseRepository leaseRepository) {
         return (args) -> {
             // save a couple of cars
-            Car savedVwGolf = carRepository.save(new Car("111111111", 1999, "VW Golf"));
+            Car vwGolf = new Car("111111111", 1999, "VW Golf");
+            vwGolf.setLeased(true);
+            Car savedVwGolf = carRepository.save(vwGolf);
             carRepository.save(new Car("222222222", 2008, "Audi A6"));
             carRepository.save(new Car("333333333", 2014, "BMW 318d"));
             carRepository.save(new Car("444444444", 2016, "Volvo V50"));

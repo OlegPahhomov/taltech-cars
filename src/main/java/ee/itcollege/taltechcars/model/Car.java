@@ -20,6 +20,7 @@ public class Car {
     private String modelNr;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private boolean leased;
 
     @OneToMany(mappedBy = "car")
     private List<Lease> leases;
@@ -88,5 +89,13 @@ public class Car {
 
     public void setLeases(List<Lease> leases) {
         this.leases = leases;
+    }
+
+    public boolean isLeased() {
+        return leased;
+    }
+
+    public void setLeased(boolean leased) {
+        this.leased = leased;
     }
 }
