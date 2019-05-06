@@ -3,11 +3,14 @@ package ee.itcollege.taltechcars.service;
 import ee.itcollege.taltechcars.model.Car;
 import ee.itcollege.taltechcars.model.User;
 
+import java.time.LocalDate;
+
 public class LeaseDto {
 
     private Long id;
     private Car car;
     private User user;
+    private LocalDate returnDate;
 
     public Long getId() {
         return id;
@@ -31,5 +34,13 @@ public class LeaseDto {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
     }
 }

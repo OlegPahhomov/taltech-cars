@@ -5,7 +5,9 @@ import ee.itcollege.taltechcars.service.LeaseDto;
 import ee.itcollege.taltechcars.service.LeaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +38,12 @@ public class LeaseController {
 
     @PostMapping
     public LeaseDto save(@RequestBody LeaseDto lease) {
-        return leaseService.save(lease);
+        return leaseService.lease(lease);
+    }
+
+    @PutMapping("{id}")
+    public LeaseDto update(@RequestBody LeaseDto leaseDto, @PathVariable Long id) {
+        return leaseService.endLease(leaseDto, id);
     }
 
 }

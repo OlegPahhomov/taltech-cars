@@ -28,7 +28,7 @@ public class LeaseService {
     @Autowired
     private CarRepository carRepository;
 
-    public LeaseDto save(LeaseDto lease) {
+    public LeaseDto lease(LeaseDto lease) {
         Lease dbLease = new Lease();
 
         //todo validate lease.getUser is not null
@@ -43,6 +43,27 @@ public class LeaseService {
         carRepository.save(car);
 
         Lease saved = leaseRepository.save(dbLease);
+        return convert(saved);
+    }
+
+    public List<LeaseDto> findAll() {
+        return leaseRepository.findAll().stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+    }
+
+    public LeaseDto endLease(LeaseDto leaseDto, Long id) {
+        Optional<Lease> dbLeaseOp = leaseRepository.findById(id);
+        Lease dbLease = dbLeaseOp.orElseThrow(RuntimeException::new); // todo 400
+
+        LocalDate returnDate = leaseDto.getReturnDate();
+        dbLease.setReturnDate(returnDate);
+        Lease saved = leaseRepository.save(dbLease);
+
+        Car car = dbLease.getCar();
+        car.setLeased(false);
+        carRepository.save(car);
+
         return convert(saved);
     }
 
@@ -66,21 +87,12 @@ public class LeaseService {
         return dbCar;
     }
 
-    public List<LeaseDto> findAll() {
-        return leaseRepository.findAll().stream()
-                .map(this::convert)
-                .collect(Collectors.toList());
-    }
-
     private LeaseDto convert(Lease lease) {
         LeaseDto leaseDto = new LeaseDto();
         leaseDto.setId(lease.getId());
         leaseDto.setCar(lease.getCar());
         leaseDto.setUser(lease.getUser());
+        leaseDto.setReturnDate(lease.getReturnDate());
         return leaseDto;
-    }
-
-    private ResponseStatusException badRequest() {
-        return new ResponseStatusException(BAD_REQUEST, "id doesnt exist");
     }
 }
