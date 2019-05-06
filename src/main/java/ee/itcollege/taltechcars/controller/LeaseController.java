@@ -2,12 +2,16 @@ package ee.itcollege.taltechcars.controller;
 
 
 import ee.itcollege.taltechcars.model.Lease;
+import ee.itcollege.taltechcars.service.LeaseDto;
 import ee.itcollege.taltechcars.service.LeaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/lease")
@@ -26,8 +30,13 @@ public class LeaseController {
     @Autowired
     private LeaseService leaseService;
 
+    @GetMapping
+    public List<Lease> findAll() {
+        return leaseService.findAll();
+    }
+
     @PostMapping
-    public Lease save(@RequestBody Lease lease) {
+    public Lease save(@RequestBody LeaseDto lease) {
         return leaseService.save(lease);
     }
 
