@@ -12,19 +12,21 @@ public class CarCustomRepositoryImpl implements CarCustomRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Car> findCarByModelNrAndYearOlder(String modelNr, Integer year) {
-        List<Car> list = entityManager.createQuery("" +
-                "SELECT c from Car c " +
-                "WHERE lower(c.modelNr) like :modelNr " +
-                "and c.year > :year", Car.class)
-                .setParameter("modelNr", "%" + "audi".toLowerCase() + "%")
-                .setParameter("year", year)
-                .getResultList();
+    public List<Car> findCarByParams(String modelNr, Integer year, Boolean available) {
+        //   List<Car> list = entityManager.createQuery("" +
+        //           "SELECT c from Car c " +
+        //      "WHERE lower(c.modelNr) like :modelNr " +
+        //      "and c.year > :year", Car.class)
+        //      .setParameter("modelNr", "%" + "audi".toLowerCase() + "%")
+        //      .setParameter("year", year)
+        //      .getResultList();
+
 
         List<Car> resultList = (List<Car>) entityManager.createNativeQuery("" +
                 "SELECT *\n" +
                 "FROM CAR \n" +
-                "WHERE lower(MODEL_NR) LIKE :modelNr \n" +
+                "WHERE true \n" +
+                "and lower(MODEL_NR) LIKE :modelNr \n" +
                 "and year > :year", Car.class)
                 .setParameter("modelNr", "%" + "audi".toLowerCase() + "%")
                 .setParameter("year", year)

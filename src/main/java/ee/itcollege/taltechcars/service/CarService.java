@@ -1,7 +1,6 @@
 package ee.itcollege.taltechcars.service;
 
 import ee.itcollege.taltechcars.model.Car;
-import ee.itcollege.taltechcars.model.Lease;
 import ee.itcollege.taltechcars.repository.CarRepository;
 import ee.itcollege.taltechcars.repository.LeaseRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -24,17 +23,9 @@ public class CarService {
     @Autowired
     private CarValidator carValidator;
 
-    public List<Car> findAll(String modelNr, Integer yearOlder) {
-        return findAllInner(modelNr, yearOlder);
-
-    }
-
-    private List<Car> findAllInner(String modelNr, Integer yearOlder) {
-        if (StringUtils.isNotBlank(modelNr)) {
-            if (yearOlder != null) {
-                return carRepository.findCarByModelNrAndYearOlder(modelNr, yearOlder);
-            }
-            return carRepository.findByModelNrContainingIgnoreCase(modelNr);
+    public List<Car> findAll(String modelNr, Integer yearOlder, Boolean available) {
+        if (StringUtils.isNotBlank(modelNr) || yearOlder != null || available != null) {
+            return carRepository.findCarByParams(modelNr, yearOlder, available);
         }
         return carRepository.findAll();
     }

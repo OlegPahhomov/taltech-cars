@@ -16,6 +16,6 @@ public class CarCustomRepositoryImplTest {
 
     @Test
     public void findCarByModelNrAndYearOlder() {
-        carRepository.findCarByModelNrAndYearOlder("123", 123);
+        carRepository.findCarByParams("123", 123, null);
     }
 }

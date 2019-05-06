@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CarCustomRepository {
 
-    List<Car> findCarByModelNrAndYearOlder(String modelNr, Integer year);
+    List<Car> findCarByParams(String modelNr, Integer year, Boolean available);
 }
