@@ -17,28 +17,24 @@ public class CarCustomRepositoryImpl implements CarCustomRepository {
 
     @Override
     public List<Car> findCarByParams(String modelNr, Integer yearOlder, Boolean available) {
-        //   List<Car> list = entityManager.createQuery("" +
-        //           "SELECT c from Car c " +
-        //      "WHERE lower(c.modelNr) like :modelNr " +
-        //      "and c.year > :year", Car.class)
-        //      .setParameter("modelNr", "%" + "audi".toLowerCase() + "%")
-        //      .setParameter("year", year)
-        //      .getResultList();
-
         Query query = entityManager.createNativeQuery("" +
                 "SELECT *\n" +
                 "FROM CAR \n" +
                 "WHERE true \n" +
                 (isNotBlank(modelNr) ? "and lower(MODEL_NR) LIKE :modelNr \n" : "") +
-                "and year > :year", Car.class);
+                (yearOlder != null ? "and year > :year \n" : "") +
+                (available != null ? "and leased = :leased \n" : "")
+                , Car.class);
 
         if (isNotBlank(modelNr)) {
-            //add a parameter to query
-            query = query.setParameter("modelNr", "%" + "audi".toLowerCase() + "%");
+            query = query.setParameter("modelNr", "%" + modelNr.toLowerCase() + "%");
         }
-        List<Car> resultList = (List<Car>) query
-                .setParameter("year", yearOlder)
-                .getResultList();
-        return resultList;
+        if (yearOlder != null) {
+            query = query.setParameter("year", yearOlder);
+        }
+        if (available != null) {
+            query = query.setParameter("leased", !available);
+        }
+        return (List<Car>) query.getResultList();
     }
 }
