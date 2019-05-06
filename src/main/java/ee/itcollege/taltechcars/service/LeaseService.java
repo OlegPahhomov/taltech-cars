@@ -1,6 +1,7 @@
 package ee.itcollege.taltechcars.service;
 
 
+import ee.itcollege.taltechcars.config.LeaseConfiguration;
 import ee.itcollege.taltechcars.model.Car;
 import ee.itcollege.taltechcars.model.Lease;
 import ee.itcollege.taltechcars.model.User;
@@ -27,6 +28,8 @@ public class LeaseService {
     private UserRepository userRepository;
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private LeaseConfiguration leaseConfiguration;
 
     public LeaseDto lease(LeaseDto lease) {
         Lease dbLease = new Lease();
@@ -37,7 +40,7 @@ public class LeaseService {
         dbLease.setCar(car);
 
         dbLease.setStartDate(LocalDate.now());
-        dbLease.setEndDate(LocalDate.now().plusWeeks(1));
+        dbLease.setEndDate(LocalDate.now().plusDays(leaseConfiguration.getDuration()));
 
         car.setLeased(true);
         carRepository.save(car);

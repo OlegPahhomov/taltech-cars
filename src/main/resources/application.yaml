@@ -9,3 +9,7 @@ spring:
     view:
       prefix: /pages/
       suffix: .jsp
+
+app:
+  lease:
+    duration: 10
