@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LeaseService {
@@ -24,7 +25,7 @@ public class LeaseService {
     @Autowired
     private CarRepository carRepository;
 
-    public Lease save(LeaseDto lease) {
+    public LeaseDto save(LeaseDto lease) {
         Lease dbLease = new Lease();
 
         //todo validate lease.getUser is not null
@@ -39,10 +40,21 @@ public class LeaseService {
         dbLease.setStartDate(LocalDate.now());
         dbLease.setEndDate(LocalDate.now().plusWeeks(1));
 
-        return leaseRepository.save(dbLease);
+        Lease saved = leaseRepository.save(dbLease);
+        return convert(saved);
     }
 
-    public List<Lease> findAll() {
-        return leaseRepository.findAll();
+    public List<LeaseDto> findAll() {
+        return leaseRepository.findAll().stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+    }
+
+    private LeaseDto convert(Lease lease) {
+        LeaseDto leaseDto = new LeaseDto();
+        leaseDto.setId(lease.getId());
+        leaseDto.setCar(lease.getCar());
+        leaseDto.setUser(lease.getUser());
+        return leaseDto;
     }
 }

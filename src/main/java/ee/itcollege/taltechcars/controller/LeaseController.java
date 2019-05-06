@@ -1,7 +1,6 @@
 package ee.itcollege.taltechcars.controller;
 
 
-import ee.itcollege.taltechcars.model.Lease;
 import ee.itcollege.taltechcars.service.LeaseDto;
 import ee.itcollege.taltechcars.service.LeaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +30,12 @@ public class LeaseController {
     private LeaseService leaseService;
 
     @GetMapping
-    public List<Lease> findAll() {
+    public List<LeaseDto> findAll() {
         return leaseService.findAll();
     }
 
     @PostMapping
-    public Lease save(@RequestBody LeaseDto lease) {
+    public LeaseDto save(@RequestBody LeaseDto lease) {
         return leaseService.save(lease);
     }
 
