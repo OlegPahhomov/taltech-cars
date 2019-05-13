@@ -3,6 +3,8 @@ package ee.itcollege.taltechcars.controller;
 
 import ee.itcollege.taltechcars.service.LeaseDto;
 import ee.itcollege.taltechcars.service.LeaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,16 +30,18 @@ public class LeaseController {
     //todo 6 (not in this class) add an api request for sth
     //todo 7 (import a csv file)
 
+    private static Logger logger = LoggerFactory.getLogger(LeaseController.class);
+
     @Autowired
     private LeaseService leaseService;
 
     @GetMapping
     public List<LeaseDto> findAll() {
         try {
+            logger.info("FindAll started");
             return leaseService.findAll();
         } catch (Exception e) {
-            System.out.println(123);
-            //todo logging
+            logger.error("FindAll has a problem {}", e.getMessage(), e);
             return null;
         }
     }
