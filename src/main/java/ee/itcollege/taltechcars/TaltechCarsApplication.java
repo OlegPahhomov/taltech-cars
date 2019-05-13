@@ -41,12 +41,16 @@ public class TaltechCarsApplication {
 
             //import csv file for users
             List<List<String>> records = new ArrayList<>();
-            try (CSVReader csvReader = new CSVReader(new FileReader("todo file.csv"));) {
+            try (CSVReader csvReader = new CSVReader(new FileReader("./files/users.csv"))) {
                 String[] values = null;
                 while ((values = csvReader.readNext()) != null) {
                     records.add(Arrays.asList(values));
                 }
             }
+            System.out.println("===================");
+            System.out.println(records);
+            System.out.println("===================");
+
 
             // save a couple of students
             User jill = userRepository.save(new User("SweetJill14", "ICS0011"));
