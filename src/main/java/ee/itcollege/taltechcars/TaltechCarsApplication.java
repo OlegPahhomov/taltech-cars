@@ -1,5 +1,6 @@
 package ee.itcollege.taltechcars;
 
+import com.opencsv.CSVReader;
 import ee.itcollege.taltechcars.model.Car;
 import ee.itcollege.taltechcars.model.Lease;
 import ee.itcollege.taltechcars.model.User;
@@ -11,7 +12,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.io.FileReader;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class TaltechCarsApplication {
@@ -33,6 +38,15 @@ public class TaltechCarsApplication {
             carRepository.save(new Car("333333333", 2014, "BMW 318d"));
             carRepository.save(new Car("444444444", 2016, "Volvo V50"));
             carRepository.save(new Car("555555555", 2018, "Audi A6"));
+
+            //import csv file for users
+            List<List<String>> records = new ArrayList<>();
+            try (CSVReader csvReader = new CSVReader(new FileReader("todo file.csv"));) {
+                String[] values = null;
+                while ((values = csvReader.readNext()) != null) {
+                    records.add(Arrays.asList(values));
+                }
+            }
 
             // save a couple of students
             User jill = userRepository.save(new User("SweetJill14", "ICS0011"));
