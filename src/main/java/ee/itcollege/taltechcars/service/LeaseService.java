@@ -50,6 +50,10 @@ public class LeaseService {
     }
 
     public List<LeaseDto> findAll() {
+        if (0 == 0){
+            throw new RuntimeException("Bad exception");
+        }
+
         return leaseRepository.findAll().stream()
                 .map(this::convert)
                 .collect(Collectors.toList());

@@ -33,7 +33,13 @@ public class LeaseController {
 
     @GetMapping
     public List<LeaseDto> findAll() {
-        return leaseService.findAll();
+        try {
+            return leaseService.findAll();
+        } catch (Exception e) {
+            System.out.println(123);
+            //todo logging
+            return null;
+        }
     }
 
     @PostMapping
