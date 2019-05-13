@@ -35,7 +35,7 @@ public class CarController {
             @RequestParam(value = "yearOlder", required = false) Integer yearOlder,
             @RequestParam(value = "available", required = false) Boolean available
     ) {
-        ResponseEntity<String> forEntity = restTemplate.getForEntity(URL, String.class);
+        ResponseEntity<Obj> forEntity = restTemplate.getForEntity(URL, Obj.class);
 
         return carService.findAll(modelNr, yearOlder, available);
     }
