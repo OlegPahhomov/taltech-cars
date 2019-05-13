@@ -50,7 +50,7 @@ public class LeaseService {
     }
 
     public List<LeaseDto> findAll() {
-        if (0 == 0){
+        if (0 == 1){
             throw new RuntimeException("Bad exception");
         }
 
