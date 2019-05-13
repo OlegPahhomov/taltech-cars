@@ -7,6 +7,8 @@ import ee.itcollege.taltechcars.model.User;
 import ee.itcollege.taltechcars.repository.CarRepository;
 import ee.itcollege.taltechcars.repository.LeaseRepository;
 import ee.itcollege.taltechcars.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +22,8 @@ import java.util.List;
 
 @SpringBootApplication
 public class TaltechCarsApplication {
+
+    private static Logger logger = LoggerFactory.getLogger(TaltechCarsApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(TaltechCarsApplication.class, args);
@@ -40,6 +44,7 @@ public class TaltechCarsApplication {
             carRepository.save(new Car("555555555", 2018, "Audi A6"));
 
             //import csv file for users
+            logger.info("Started reading records from csv file");
             List<List<String>> records = new ArrayList<>();
             try (CSVReader csvReader = new CSVReader(new FileReader("./files/users.csv"))) {
                 String[] values = null;
@@ -47,9 +52,8 @@ public class TaltechCarsApplication {
                     records.add(Arrays.asList(values));
                 }
             }
-            System.out.println("===================");
-            System.out.println(records);
-            System.out.println("===================");
+            logger.info(records.toString());
+            logger.info("Finished reading records");
 
 
             // save a couple of students
